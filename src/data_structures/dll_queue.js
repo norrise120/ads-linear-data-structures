@@ -18,7 +18,8 @@ class DLLQueue {
    * @returns {ticket} Cancellation ticket
    */
   enqueue(element) {
-
+    const ticket = this.storage.insertTail(element);
+    return ticket;
   }
 
   /**
@@ -28,7 +29,7 @@ class DLLQueue {
    * @returns Stored element
    */
   cancel(ticket) {
-
+    return this.storage.remove(ticket);
   }
 
   /**
@@ -37,7 +38,8 @@ class DLLQueue {
    * @returns Stored element
    */
   dequeue() {
-
+    const element = this.storage.removeHead();
+    return element;
   }
 
   /**
@@ -46,7 +48,7 @@ class DLLQueue {
    * @returns {number} Current count
    */
   count() {
-
+    return this.storage.count();
   }
 
   /**
@@ -62,7 +64,7 @@ class DLLQueue {
    * @param {forEachCallback} callback Function to invoke
    */
   forEach(callback) {
-
+    this.storage.forEach(callback, this);
   }
 }
 
