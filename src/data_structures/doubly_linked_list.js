@@ -31,24 +31,48 @@ class DoublyLinkedList {
   }
 
   insertHead(element) {
+    const newNode = new this.Node({element, next: this._head(), prev: this._sentinel});
+    this._head().prev = newNode;
+    this._sentinel.next = newNode;
+    return newNode
   }
 
   insertTail(element) {
+    const newNode = new this.Node({element, next: this._sentinel, prev: this._tail()});
+    this._tail().next = newNode;
+    this._sentinel.prev = newNode;
+    return newNode;
   }
 
   removeHead() {
+    // this._head() returns the head node, .remove() is the DLLNode method
+    return this._head().remove();
   }
 
   removeTail() {
+    return this._tail().remove();
   }
 
   remove(node) {
+    if (node.remove) {
+      return node.remove();
+    }
   }
 
   forEach(callback) {
+    let currentNode = this._head();
+    let i = 0;
+    while (currentNode !== this._sentinel) {
+      callback(currentNode.element, i, this);
+      currentNode = currentNode.next;
+      i += 1;
+    }
   }
 
   count() {
+    let count = 0;
+    this.forEach(() => count += 1);
+    return count;
   }
 }
 
